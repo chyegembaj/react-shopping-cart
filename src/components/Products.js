@@ -30,30 +30,34 @@ class Products extends Component {
     return (
       <div>
         <Fade bottom cascade>
-          <ul className="products">
-            {this.props.products.map((product) => (
-              <li key={product._id}>
-                <div className="product">
-                  <a
-                    href={"#" + product._id}
-                    onClick={() => this.openModal(product)}
-                  >
-                    <img src={product.image} alt={product.title} />
-                    <p>{product.title}</p>
-                  </a>
-                  <div className="product-price">
-                    <div>{formatCurreny(product.price)}</div>
-                    <button
-                      className="button primary"
-                      onClick={() => this.props.addToCart(product)}
+          {!this.props.products ? (
+            <div>Loading...</div>
+          ) : (
+            <ul className="products">
+              {this.props.products.map((product) => (
+                <li key={product._id}>
+                  <div className="product">
+                    <a
+                      href={"#" + product._id}
+                      onClick={() => this.openModal(product)}
                     >
-                      Add to Cart
-                    </button>
+                      <img src={product.image} alt={product.title} />
+                      <p>{product.title}</p>
+                    </a>
+                    <div className="product-price">
+                      <div>{formatCurreny(product.price)}</div>
+                      <button
+                        className="button primary"
+                        onClick={() => this.props.addToCart(product)}
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          )}
         </Fade>
         {product && (
           <Modal isOpen={true} onRequestClose={this.closeModal}>
